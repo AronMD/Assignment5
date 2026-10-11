@@ -4,10 +4,41 @@
 #include <unistd.h>
 
 int main(int argc, char *argv[]){
+    // initalise variables 
+    float alpha = 0;
+    int k;
+    string filename;
+    int tot_char;
     
     // Get command line arguments for -a
-    
+    int opt;
+    char *pre_alpha;
 
+    while((opt = getopt(argc, argv, "::a:")) != -1){ 
+        switch(opt){ 
+        case 'a':
+            pre_alpha = optarg;
+            alpha = atof(pre_alpha);
+        } 
+    }
+    // ensure alpha >= 0
+    if (alpha < 0)
+        throw std::invalid_argument("alpha must be greater than or equal to 0");
+    
+    // Ensures enough arguments passed
+    if (argv[optind] == NULL || argv[optind + 1] == NULL || argv[optind + 2] == NULL)
+    throw std::invalid_argument("three arguments are required \n[int k] [trainingfile.txt] [int total characters] \nnote total characters must be greater or equal to k");
+
+    // read arguments
+    k = stoi(string(argv[optind]));
+    filename = argv[optind + 1];
+    tot_char = stoi(string(argv[optind + 2]));
+
+
+    cout << "alpha is: " << alpha<< endl;
+    cout <<"k = " << k << endl;
+    cout <<"training file is: " << filename << endl;
+    cout <<"length of generated characters = " << tot_char << endl;
 
     return 0;
 }
