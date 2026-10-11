@@ -3,12 +3,18 @@
 #include <iostream>
 #include <unistd.h>
 
+
+using namespace std;
+
+
 int main(int argc, char *argv[]){
     // initalise variables 
     float alpha = 0;
     int k;
     string filename;
     int tot_char;
+
+    // below should likely be its own function
     
     // Get command line arguments for -a
     int opt;
@@ -23,11 +29,11 @@ int main(int argc, char *argv[]){
     }
     // ensure alpha >= 0
     if (alpha < 0)
-        throw std::invalid_argument("alpha must be greater than or equal to 0");
+        throw invalid_argument("alpha must be greater than or equal to 0");
     
     // Ensures enough arguments passed
     if (argv[optind] == NULL || argv[optind + 1] == NULL || argv[optind + 2] == NULL)
-    throw std::invalid_argument("three arguments are required \n[int k] [trainingfile.txt] [int total characters] \nnote total characters must be greater or equal to k");
+    throw invalid_argument("three arguments are required \n[int k] [trainingfile.txt] [int total characters] \nnote total characters must be greater or equal to k");
 
     // read arguments
     k = stoi(string(argv[optind]));
@@ -39,6 +45,21 @@ int main(int argc, char *argv[]){
     cout <<"k = " << k << endl;
     cout <<"training file is: " << filename << endl;
     cout <<"length of generated characters = " << tot_char << endl;
+
+
+
+    // search file character by character and record values
+
+
+
+
+
+
+
+
+
+
+
 
     return 0;
 }
