@@ -47,7 +47,6 @@ int main(int argc, char *argv[]){
     cout <<"length of generated characters = " << tot_char << endl;
 
 
-
     // search file character by character and record values
 
 

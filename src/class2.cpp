@@ -28,10 +28,9 @@ Distribution::Distribution(){
 };
 
 Distribution::Distribution(string filename, int k){
-    string text = ;
+    string text = Read(filename);
+    cout << text[0] << "' " << text[10] << endl;
     for (int i=0; i < (text.length() - k); i++){
                 
     }
 };
-
-
