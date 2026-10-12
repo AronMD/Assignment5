@@ -51,18 +51,19 @@ Distribution::Distribution(string filename, int k, float alpha){
             kgram += text[i+j];
         }
 
-        // Record this kgram's frequency in a map
+        // Recording this kgram's frequency in a map
         // Finding element with key kgram
         auto it = store.find(kgram);
         if (it != store.end()){
             // update element weighting with +1
             store.at(kgram)++;
-
         }
         else {
             // append new pair with weight 1
             store.insert({kgram, 1});
         }
+
+        // Convert to a distribution to return with alpha included
 
     }
 };
