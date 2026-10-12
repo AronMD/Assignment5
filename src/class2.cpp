@@ -3,8 +3,11 @@
 #include <fstream>
 #include <map>
 
-
 using namespace std;
+
+
+
+
 // private methods
 string Read(string filename){
     // generate required variables
@@ -27,18 +30,9 @@ string Read(string filename){
 }
 
 
-// Constructors
-// Default
-Distribution::Distribution(){
-    // Generate a uniform one with alpha = 0 for 0 elements
-};
 
-// Others
-Distribution::Distribution(string filename, int k, float alpha){
-    // Get file as a string
-    string text = Read(filename);
 
-    // Then go through each k-gram and record its weightings
+map<string, int> Map_Gen(string text, int k){
     string kgram;
     map<string, int> store;
 
@@ -62,10 +56,34 @@ Distribution::Distribution(string filename, int k, float alpha){
             // append new pair with weight 1
             store.insert({kgram, 1});
         }
-
-        // Convert to a distribution to return with alpha included
-
     }
+    return store;
+}
+
+
+
+
+
+
+// Constructors
+// Default
+Distribution::Distribution(){
+    // Generate a uniform one with alpha = 0 for 0 elements
+};
+
+// Others
+Distribution::Distribution(string filename, int k, float alpha){
+    // Get file as a string
+    string text = Read(filename);
+
+    // Then go through each k-gram and record its weightings
+    map<string, int> store = Map_Gen(text, k);
+
+    // Convert to a distribution to return with alpha included
+    
+
+
+
 };
 
 // Methods:
