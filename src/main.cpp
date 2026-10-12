@@ -14,7 +14,7 @@ int main(int argc, char *argv[]){
     string filename;
     int tot_char;
 
-    // below should likely be its own function
+    // below should likely be its own function returns array with answers? rather than memory address stuff
     
     // Get command line arguments for -a
     int opt;
@@ -29,7 +29,7 @@ int main(int argc, char *argv[]){
     }
     // ensure alpha >= 0
     if (alpha < 0)
-        throw invalid_argument("alpha must be greater than or equal to 0");
+        throw invalid_argument("alpha provided must be greater than or equal to 0");
     
     // Ensures enough arguments passed
     if (argv[optind] == NULL || argv[optind + 1] == NULL || argv[optind + 2] == NULL)

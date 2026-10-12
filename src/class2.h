@@ -11,7 +11,7 @@ private:
 
 public:
     Distribution();
-    Distribution(string filename,int k);
+    Distribution(string filename, int k, float alpha);
 
 
 };

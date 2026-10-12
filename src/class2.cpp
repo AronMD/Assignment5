@@ -1,19 +1,24 @@
 #include "class2.h"
 #include <iostream>
 #include <fstream>
+#include <map>
 
 
 using namespace std;
 // private methods
 string Read(string filename){
+    // generate required variables
     ifstream in;
     string s;
     string text;
 
+    // Open file
     in.open(filename);
-        while (getline(in ,s)) {
-            text += s;
-        };  
+    
+    // form a single string for the whole text file
+    while (getline(in, s)) {
+        text += s;
+    };  
 
     //close file
     in.close();
@@ -23,27 +28,47 @@ string Read(string filename){
 
 
 // Constructors
+// Default
 Distribution::Distribution(){
-    // Generate a uniform one with alpha = 0
+    // Generate a uniform one with alpha = 0 for 0 elements
 };
 
-Distribution::Distribution(string filename, int k){
+// Others
+Distribution::Distribution(string filename, int k, float alpha){
     // Get file as a string
     string text = Read(filename);
 
     // Then go through each k-gram and record its weightings
     string kgram;
+    map<string, int> store;
 
     for (int i=0; i < (text.length() - k); i++){
         // empty the kgram
         kgram = "";
+
+        // currently missing 1 ubba
 
         //Generate a temporary string represting the k-gram: via text[i]+text[1+1]...+text[i+k];
         for (int j=0; j <k; j++){
             kgram += text[i+j];
         }
 
-        // Record this kgram's frequency in the distribution
+        // Record this kgram's frequency in a map
+        // Finding element with key kgram
+        auto it = store.find(kgram);
+        if (it != store.end()){
+            // update element weighting with +1
+            store.at(kgram)++;
+
+        }
+        else {
+            // append new pair with weight 1
+            store.insert({kgram, 1});
+        }
 
     }
 };
+
+// Methods:
+
+// need one for selecting for P(c|w)
