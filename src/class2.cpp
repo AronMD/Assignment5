@@ -42,11 +42,9 @@ Distribution::Distribution(string filename, int k, float alpha){
     string kgram;
     map<string, int> store;
 
-    for (int i=0; i < (text.length() - k); i++){
+    for (int i=0; i < (text.length() - k + 1); i++){
         // empty the kgram
         kgram = "";
-
-        // currently missing 1 ubba
 
         //Generate a temporary string represting the k-gram: via text[i]+text[1+1]...+text[i+k];
         for (int j=0; j <k; j++){
