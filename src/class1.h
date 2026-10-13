@@ -1,15 +1,27 @@
 #pragma once
 #include <iostream>
 #include "class2.h"
+#include <random>
 //#include "class2.cpp"
 
 
 class Kgram{
 private:
-    int length;
+    // attributes
+    std::random_device rd;
+    std::mt19937 gen;
+    //int length;
+    
 public:
+    // attributes
+    std::string kgram;
+
     // Constructors:
     Kgram();
-    Kgram(int length, Distribution dist);
+    Kgram(Distribution dist, std::mt19937 gen);
+    Kgram(std::string in);
 
+    // Methods
+    std::string evolve(Distribution dist, int tot_char);
+    void print();
 };

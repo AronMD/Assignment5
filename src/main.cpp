@@ -2,10 +2,10 @@
 #include <unistd.h>
 #include <map>
 #include <random>
-#include "class1.cpp"
 #include "class2.cpp"
 #include "class2.h"
 #include "class1.h"
+#include "class1.cpp"
 
 
 using namespace std;
@@ -56,8 +56,15 @@ int main(int argc, char *argv[]){
         //dist.update_alpha(alpha);
     }
 
-    
-    Kgram(k, dist);
+    // random seed generation
+    random_device rd;
+    mt19937 gen(rd());
+
+    // Generate the kgram and then evolve it longer
+    Kgram kgr(dist, gen);
+    kgr.print();
+    cout <<"kgram after making: " <<kgr.kgram << endl;
+    kgr.evolve(dist, tot_char);
     
 
     return 0;

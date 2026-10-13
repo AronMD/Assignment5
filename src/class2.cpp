@@ -28,9 +28,7 @@ std::string Distribution::Read(std::string filename){
     in.close();
 
     return text;
-}
-
-
+};
 
 
 std::map<std::string, int> Distribution::Map_Gen(std::string text, int k){
@@ -44,6 +42,7 @@ std::map<std::string, int> Distribution::Map_Gen(std::string text, int k){
         //Generate a temporary string represting the k-gram: via text[i]+text[1+1]...+text[i+k];
         for (int j=0; j <k; j++){
             kgram += text[i+j];
+            std::replace( kgram.begin(), kgram.end(), '\n', ' '); // replace all 'x' to 'y';
         }
 
         // Recording this kgram's frequency in a map
@@ -59,7 +58,7 @@ std::map<std::string, int> Distribution::Map_Gen(std::string text, int k){
         }
     }
     return store;
-}
+};
 
 
 
@@ -99,18 +98,17 @@ Distribution::Distribution(std::string filename, int k, float alpha){
     dist = std::discrete_distribution<> (weights.begin(), weights.end());
 };
 
+
+
+
+
 // Methods:
 std::string Distribution::get_w(std::mt19937 gen){
-    //random_device rd;
-    //mt19937 gen(rd());
     int random_index = dist(gen);
     //cout << random_index << endl;
     std::string selected_string = names[random_index];
-
     return selected_string;
 };
-
-
 
 
 void Distribution::print(){
@@ -119,27 +117,32 @@ void Distribution::print(){
     }
 };
 
+
 // need one for selecting for P(c|w)
 char Distribution::get_c(std::mt19937 gen, std::string kgram){
-        std::vector<char> cs; // vectors for pot c
-        std::vector<int> weights_c; // relative weightings for c
+    std::vector<char> cs; // vectors for pot c
+    std::vector<int> weights_c; // relative weightings for c
 
-    //may need to ensure these changes arent permenant - either duplicate names and use a second one or copy last letter and then restore it
-    
     // search for the possible endings
     // iterate through names and weights
+
+    std::cout<<"kgram in get_c is: " <<kgram << std::endl;
+
     for (int i=0; i<names.size(); i++){
         char c_temp = names[i].back(); // determine last c
         names[i].pop_back(); // remove last char "c"
 
         if (!kgram.compare(names[i])) { // if w2,w3,...,wk = any_kgram-c
             // 'kgram' and 'i - last char' are equal.
-            std::cout << kgram << "," << names[i] << std::endl;
+            //std::cout << kgram << "," << names[i] << std::endl;
 
             // store new distribution data
             cs.push_back(c_temp);
             weights_c.push_back(weights[i]);
         }
+    
+    // Restore the original names
+    names[i] = names[i] + c_temp;
     }
 
     // generate distribution
@@ -147,11 +150,12 @@ char Distribution::get_c(std::mt19937 gen, std::string kgram){
 
     // select c
     int random_index = dist(gen);
+    //std::cout << random_index << std::endl;
     char c = cs[random_index];
 
     // return c
     return c;
-}
+};
 
 
 
