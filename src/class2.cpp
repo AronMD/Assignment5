@@ -118,7 +118,42 @@ void Distribution::print(){
         std::cout << kgram << std::endl;
     }
 };
+
 // need one for selecting for P(c|w)
+char Distribution::get_c(std::mt19937 gen, std::string kgram){
+        std::vector<char> cs; // vectors for pot c
+        std::vector<int> weights_c; // relative weightings for c
+
+    //may need to ensure these changes arent permenant - either duplicate names and use a second one or copy last letter and then restore it
+    
+    // search for the possible endings
+    // iterate through names and weights
+    for (int i=0; i<names.size(); i++){
+        char c_temp = names[i].back(); // determine last c
+        names[i].pop_back(); // remove last char "c"
+
+        if (!kgram.compare(names[i])) { // if w2,w3,...,wk = any_kgram-c
+            // 'kgram' and 'i - last char' are equal.
+            std::cout << kgram << "," << names[i] << std::endl;
+
+            // store new distribution data
+            cs.push_back(c_temp);
+            weights_c.push_back(weights[i]);
+        }
+    }
+
+    // generate distribution
+    dist = std::discrete_distribution<> (weights_c.begin(), weights_c.end());
+
+    // select c
+    int random_index = dist(gen);
+    char c = cs[random_index];
+
+    // return c
+    return c;
+}
+
+
 
 // need one for alpha
 

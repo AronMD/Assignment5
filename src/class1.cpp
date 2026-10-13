@@ -15,11 +15,14 @@ Kgram::Kgram(int length, Distribution dist){
     std::random_device rd;
     std::mt19937 gen(rd());
     std::string kgram = dist.get_w(gen);
-    //std::cout << kgram << std::endl;
+    std::cout << kgram << std::endl;
 
-    // Look up the character distribution for w, and sample the next character c. 
-    std::string reduced_kgram = kgram.erase(0, 1);
-    //std::cout << reduced_kgram << std::endl;
+    // Look up the character distribution for w,and sample the next character c. 
+    // remove w1 and append c
+    kgram.erase(0, 1);
+    std::cout << kgram <<std::endl;
+    kgram += dist.get_c(gen, kgram);
+    std::cout << kgram << std::endl;
 
 
     // If len of k == length then exit else repeat above - implies while
