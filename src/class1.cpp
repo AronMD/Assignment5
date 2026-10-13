@@ -17,16 +17,13 @@ Kgram::Kgram(int length, Distribution dist){
     std::string kgram = dist.get_w(gen);
     std::cout << kgram << std::endl;
 
+    
+    while(kgram.size()< length){
     // Look up the character distribution for w,and sample the next character c. 
     // remove w1 and append c
     kgram.erase(0, 1);
     std::cout << kgram <<std::endl;
     kgram += dist.get_c(gen, kgram);
     std::cout << kgram << std::endl;
-
-
-    // If len of k == length then exit else repeat above - implies while
-    
-    //while(kgram.size()< length){}
-
+    }
 }
