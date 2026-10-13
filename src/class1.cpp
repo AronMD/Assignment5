@@ -1,5 +1,7 @@
 #include "class1.h"
 #include <iostream>
+#include "class2.h"
+#include "class2.cpp"
 
 // Constructor
 Kgram::Kgram(){

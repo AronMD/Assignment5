@@ -51,18 +51,9 @@ int main(int argc, char *argv[]){
 
 
     // search file character by character and record values to generate distribution
-    Distribution dist = Distribution(filename, k, alpha);
-
-    cout << dist.get_w();
-
-
-
-
-
-
-
-
-
+    Distribution dist(filename, k, alpha);
+    vector<string> names = dist.names;
+    
 
     return 0;
 }

@@ -1,5 +1,7 @@
 #pragma once
 #include <iostream>
+#include "class2.h"
+#include "class.cpp"
 
 using namespace std;
 
