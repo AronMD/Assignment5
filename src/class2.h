@@ -3,29 +3,29 @@
 #include <iostream>
 #include <map>
 
-using namespace std;
+//using namespace std;
 
 class Distribution
 {
 private:
     // Attributes
-    vector<int> weights;
-    discrete_distribution<> dist;
+    std::vector<int> weights;
+    std::discrete_distribution<> dist;
 
     // Methods
-    string Read(string filename);
-    map<string, int> Map_Gen(string text, int k);
+    std::string Read(std::string filename);
+    std::map<std::string, int> Map_Gen(std::string text, int k);
 
 public:
     // Attributes
-    vector<string> names;
+    std::vector<std::string> names;
 
     // Generators
     Distribution();
-    Distribution(string filename, int k, float alpha);
+    Distribution(std::string filename, int k, float alpha);
 
     // Methods
-    string get_w();
+    std::string get_w(std::mt19937 gen);
     void print();
 };
 

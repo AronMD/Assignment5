@@ -1,7 +1,7 @@
 #pragma once
 #include <iostream>
 #include "class2.h"
-#include "class.cpp"
+//#include "class2.cpp"
 
 using namespace std;
 
@@ -11,6 +11,6 @@ private:
 public:
     // Constructors:
     Kgram();
-    Kgram(int length);
+    Kgram(int length, Distribution dist);
 
 };

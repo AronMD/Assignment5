@@ -2,9 +2,10 @@
 #include <unistd.h>
 #include <map>
 #include <random>
-#include "class1.h"
+#include "class1.cpp"
 #include "class2.cpp"
 #include "class2.h"
+#include "class1.h"
 
 
 using namespace std;
@@ -43,16 +44,20 @@ int main(int argc, char *argv[]){
     filename = argv[optind + 1];
     tot_char = stoi(string(argv[optind + 2]));
 
-
     cout << "alpha is: " << alpha<< endl;
     cout <<"k = " << k << endl;
     cout <<"training file is: " << filename << endl;
     cout <<"length of generated characters = " << tot_char << endl;
 
-
     // search file character by character and record values to generate distribution
     Distribution dist(filename, k, alpha);
     vector<string> names = dist.names;
+    if (alpha != 0){ {
+        //dist.update_alpha(alpha);
+    }
+    //Kgram(k, dist);
+    }
+
     
 
     return 0;

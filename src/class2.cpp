@@ -4,17 +4,17 @@
 #include <map>
 #include <random>
 
-using namespace std;
+//using namespace std;
 
 
 
 
 // private methods
-string Distribution::Read(string filename){
+std::string Distribution::Read(std::string filename){
     // generate required variables
-    ifstream in;
-    string s;
-    string text;
+    std::ifstream in;
+    std::string s;
+    std::string text;
 
     // Open file
     in.open(filename);
@@ -33,9 +33,9 @@ string Distribution::Read(string filename){
 
 
 
-map<string, int> Distribution::Map_Gen(string text, int k){
-    string kgram;
-    map<string, int> store;
+std::map<std::string, int> Distribution::Map_Gen(std::string text, int k){
+    std::string kgram;
+    std::map<std::string, int> store;
 
     for (int i=0; i < (text.length() - k + 1); i++){
         // empty the kgram
@@ -75,16 +75,16 @@ Distribution::Distribution(){
 };
 
 // Others
-Distribution::Distribution(string filename, int k, float alpha){
+Distribution::Distribution(std::string filename, int k, float alpha){
     /*vector<string> names;
     vector<int> weights;
     discrete_distribution<> dist;*/
 
     // Get file as a string
-    string text = Read(filename);
+    std::string text = Read(filename);
 
     // Then go through each k-gram and record its weightings
-    map<string, int> store = Map_Gen(text, k);
+    std::map<std::string, int> store = Map_Gen(text, k);
 
     // Convert to a distribution of initial k-grams to return
     // iterate part by part vector of kgrams and then vector of weightings which becomes distribution
@@ -96,16 +96,16 @@ Distribution::Distribution(string filename, int k, float alpha){
     }
 
     // need names to be sent out
-    dist = discrete_distribution<> (weights.begin(), weights.end());
+    dist = std::discrete_distribution<> (weights.begin(), weights.end());
 };
 
 // Methods:
-string Distribution::get_w(){
-    random_device rd;
-    mt19937 gen(rd());
+std::string Distribution::get_w(std::mt19937 gen){
+    //random_device rd;
+    //mt19937 gen(rd());
     int random_index = dist(gen);
     //cout << random_index << endl;
-    string selected_string = names[random_index];
+    std::string selected_string = names[random_index];
 
     return selected_string;
 };
@@ -115,7 +115,7 @@ string Distribution::get_w(){
 
 void Distribution::print(){
     for (auto kgram : names){
-        cout << kgram << endl;
+        std::cout << kgram << std::endl;
     }
 };
 // need one for selecting for P(c|w)
