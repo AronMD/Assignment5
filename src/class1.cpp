@@ -5,27 +5,25 @@
 
 // Constructor
 Kgram::Kgram(){
-    string kgram;
+    std::string kgram;
     length = 0;
 };
 
 Kgram::Kgram(int length, Distribution dist){
     
     // Choose w_k- first character 
-    random_device rd;
-    mt19937 gen(rd());
-    string kgram = dist.get_w(gen);
-    cout << kgram << endl;
-    string reduced_kgram = kgram.erase(0, 1);
-    cout << reduced_kgram << endl;
+    std::random_device rd;
+    std::mt19937 gen(rd());
+    std::string kgram = dist.get_w(gen);
+    //std::cout << kgram << std::endl;
+
     // Look up the character distribution for w, and sample the next character c. 
-    //If alpha=0 and w has no transitions (it only occurs at the end of the training text), stop.
+    std::string reduced_kgram = kgram.erase(0, 1);
+    //std::cout << reduced_kgram << std::endl;
+
 
     // If len of k == length then exit else repeat above - implies while
     
-    while(kgram.size()< length){
-       
-
-    }
+    //while(kgram.size()< length){}
 
 }

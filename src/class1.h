@@ -3,7 +3,6 @@
 #include "class2.h"
 //#include "class2.cpp"
 
-using namespace std;
 
 class Kgram{
 private:

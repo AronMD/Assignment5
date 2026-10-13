@@ -52,12 +52,12 @@ int main(int argc, char *argv[]){
     // search file character by character and record values to generate distribution
     Distribution dist(filename, k, alpha);
     vector<string> names = dist.names;
-    if (alpha != 0){ {
+    if (alpha != 0){
         //dist.update_alpha(alpha);
     }
-    //Kgram(k, dist);
-    }
 
+    
+    Kgram(k, dist);
     
 
     return 0;
