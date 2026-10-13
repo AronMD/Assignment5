@@ -2,6 +2,7 @@
 #include <iostream>
 #include <fstream>
 #include <map>
+#include <random>
 
 using namespace std;
 
@@ -9,7 +10,7 @@ using namespace std;
 
 
 // private methods
-string Read(string filename){
+string Distribution::Read(string filename){
     // generate required variables
     ifstream in;
     string s;
@@ -32,7 +33,7 @@ string Read(string filename){
 
 
 
-map<string, int> Map_Gen(string text, int k){
+map<string, int> Distribution::Map_Gen(string text, int k){
     string kgram;
     map<string, int> store;
 
@@ -64,28 +65,51 @@ map<string, int> Map_Gen(string text, int k){
 
 
 
-
 // Constructors
 // Default
 Distribution::Distribution(){
     // Generate a uniform one with alpha = 0 for 0 elements
+    vector<string> names;
+    vector<int> weights;
 };
 
 // Others
-Distribution::Distribution(string filename, int k, float alpha){
+Distribution::Distribution(string filename, int k, float alpha): filename(filename), k(k), alpha(alpha){
     // Get file as a string
     string text = Read(filename);
 
     // Then go through each k-gram and record its weightings
     map<string, int> store = Map_Gen(text, k);
 
-    // Convert to a distribution to return with alpha included
-    
+    // Convert to a distribution of initial k-grams to return
+    // iterate part by part vector of kgrams and then vector of weightings which becomes distribution
+    vector<string> names;
+    vector<int> weights;
 
+    for (auto& pair : store){
+        //cout << pair.first << " " <<pair.second << endl;
+        names.push_back(pair.first);
+        weights.push_back(pair.second);
+    }
 
-
+    // need names to be sent out
+    discrete_distribution<> dist = discrete_distribution<> (weights.begin(), weights.end());
 };
 
 // Methods:
+string Distribution::get_w(){
+    random_device rd;
+    mt19937 gen(rd());
+    int random_index = dist(gen);
+    cout << random_index << endl;
+    string selected_string = names[random_index];
+    cout << "here" << endl;
+
+    return selected_string;
+};
 
 // need one for selecting for P(c|w)
+
+// need one for alpha
+
+//

@@ -1,7 +1,10 @@
-#include "class1.h"
-#include "class2.h"
 #include <iostream>
 #include <unistd.h>
+#include <map>
+#include <random>
+#include "class1.h"
+#include "class2.cpp"
+#include "class2.h"
 
 
 using namespace std;
@@ -47,9 +50,10 @@ int main(int argc, char *argv[]){
     cout <<"length of generated characters = " << tot_char << endl;
 
 
-    // search file character by character and record values
+    // search file character by character and record values to generate distribution
+    Distribution dist = Distribution(filename, k, alpha);
 
-
+    cout << dist.get_w();
 
 
 
