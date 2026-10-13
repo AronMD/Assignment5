@@ -12,11 +12,27 @@ using namespace std;
 
 /*
 To DO:
-Errors
+Errors  - an option -a that is not followed by a non-negative number, or an unknown option,
 alpha
 makefile
 
 */
+
+void error_check(int k, string filename, int tot_char){
+    // a k or an output length that is not a positive integer, or an output length smaller than k
+    if ((k <= 1) or (k > tot_char))
+    throw domain_error("k must be greater 1 and must be smaller or equal to the final outputted number of characters");
+
+    //a training file that cannot be opened
+    ifstream file;
+    file.open(filename);
+    if (!file.is_open())
+    throw invalid_argument("Training file not detected");
+    file.close();
+
+};
+
+
 
 
 int main(int argc, char *argv[]){
@@ -37,11 +53,13 @@ int main(int argc, char *argv[]){
         case 'a':
             pre_alpha = optarg;
             alpha = atof(pre_alpha);
+            }
+            
         } 
-    }
+    
     // ensure alpha >= 0
     if (alpha < 0)
-        throw invalid_argument("alpha provided must be greater than or equal to 0");
+        throw domain_error("alpha provided must be greater than or equal to 0");
     
     // Ensures enough arguments passed
     if (argv[optind] == NULL || argv[optind + 1] == NULL || argv[optind + 2] == NULL)
@@ -51,6 +69,8 @@ int main(int argc, char *argv[]){
     k = stoi(string(argv[optind]));
     filename = argv[optind + 1];
     tot_char = stoi(string(argv[optind + 2]));
+
+    error_check(k, filename, tot_char);
 
     cout << "alpha is: " << alpha<< endl;
     cout <<"k = " << k << endl;
