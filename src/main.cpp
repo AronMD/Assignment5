@@ -10,6 +10,14 @@
 
 using namespace std;
 
+/*
+To DO:
+Errors
+alpha
+makefile
+
+*/
+
 
 int main(int argc, char *argv[]){
     // initalise variables 
@@ -47,7 +55,7 @@ int main(int argc, char *argv[]){
     cout << "alpha is: " << alpha<< endl;
     cout <<"k = " << k << endl;
     cout <<"training file is: " << filename << endl;
-    cout <<"length of generated characters = " << tot_char << endl;
+    cout <<"length of generated characters = " << tot_char << "\n" << endl;
 
     // search file character by character and record values to generate distribution
     Distribution dist(filename, k, alpha);
@@ -62,9 +70,9 @@ int main(int argc, char *argv[]){
 
     // Generate the kgram and then evolve it longer
     Kgram kgr(dist, gen);
-    kgr.print();
-    cout <<"kgram after making: " <<kgr.kgram << endl;
+    cout << "The generated text is: " << endl;
     kgr.evolve(dist, tot_char);
+    kgr.print();
     
 
     return 0;

@@ -126,7 +126,7 @@ char Distribution::get_c(std::mt19937 gen, std::string kgram){
     // search for the possible endings
     // iterate through names and weights
 
-    std::cout<<"kgram in get_c is: " <<kgram << std::endl;
+    //std::cout<<"kgram in get_c is: " <<kgram << std::endl;
 
     for (int i=0; i<names.size(); i++){
         char c_temp = names[i].back(); // determine last c
