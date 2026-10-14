@@ -2,10 +2,9 @@
 #include <unistd.h>
 #include <map>
 #include <random>
-#include "class2.cpp"
+#include <fstream>
 #include "class2.h"
 #include "class1.h"
-#include "class1.cpp"
 
 using namespace std;
 
