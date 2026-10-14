@@ -21,15 +21,24 @@ makefile
 void error_check(int k, string filename, int tot_char){
     // a k or an output length that is not a positive integer, or an output length smaller than k
     if ((k <= 1) or (k > tot_char))
-    throw domain_error("k must be greater 1 and must be smaller or equal to the final outputted number of characters");
+        throw domain_error("k must be greater 1 and must be smaller or equal to the final outputted number of characters");
 
     //a training file that cannot be opened
     ifstream file;
     file.open(filename);
     if (!file.is_open())
-    throw invalid_argument("Training file not detected");
+        throw invalid_argument("Training file not detected");
     file.close();
 
+};
+
+
+
+
+void error_alpha(string pre_alpha, float alpha){
+    // ensure alpha given isnt a string - atof returns 0 if it is, need to check alpha hasnt been specified as 0 or 0.00
+    if ((alpha = 0) and ( pre_alpha[0] != '0'))
+        throw invalid_argument("alpha is a number greater than or equal to 0");
 };
 
 
@@ -53,6 +62,7 @@ int main(int argc, char *argv[]){
         case 'a':
             pre_alpha = optarg;
             alpha = atof(pre_alpha);
+            error_alpha(pre_alpha, alpha);
             }
             
         } 

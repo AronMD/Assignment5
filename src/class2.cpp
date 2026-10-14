@@ -85,7 +85,7 @@ Distribution::Distribution(std::string filename, int k, float alpha){
     // Check text is sufficiently long for a kgram
     //a training text that is too short to contain any -gram followed by a character
     if (text.size() <= k+1)
-    throw std::out_of_range("The training file is shorter than the desired kgram plus an additional character");
+        throw std::out_of_range("The training file is shorter than the desired kgram plus an additional character");
 
     // Then go through each k-gram and record its weightings
     std::map<std::string, int> store = Map_Gen(text, k);
