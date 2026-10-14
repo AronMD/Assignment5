@@ -25,4 +25,5 @@ public:
     std::string evolve(Distribution dist, int tot_char);
     std::string evolve_alpha(Distribution dist, int tot_char, float alpha);
     void print();
+    bool test(std::string text);
 };

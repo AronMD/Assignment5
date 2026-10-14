@@ -13,7 +13,6 @@ using namespace std;
 /*
 To DO:
 w has no transitions (it only occurs at the end of the training text), stop.
-alpha
 makefile
 
 */
