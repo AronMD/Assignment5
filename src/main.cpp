@@ -7,15 +7,10 @@
 #include "class1.h"
 #include "class1.cpp"
 
-
 using namespace std;
 
-/*
-To DO:
-w has no transitions (it only occurs at the end of the training text), stop.
-makefile
 
-*/
+
 
 void error_check(int k, string filename, int tot_char){
     // a k or an output length that is not a positive integer, or an output length smaller than k
@@ -49,13 +44,12 @@ int main(int argc, char *argv[]){
     int k;
     string filename;
     int tot_char;
-
-    // below should likely be its own function returns array with answers? rather than memory address stuff
     
     // Get command line arguments for -a
     int opt;
     char *pre_alpha;
 
+    // check for unix style argument -a
     while((opt = getopt(argc, argv, "::a:")) != -1){ 
         switch(opt){ 
         case 'a':
@@ -72,15 +66,17 @@ int main(int argc, char *argv[]){
     
     // Ensures enough arguments passed
     if (argv[optind] == NULL || argv[optind + 1] == NULL || argv[optind + 2] == NULL)
-    throw invalid_argument("three arguments are required \n[int k] [trainingfile.txt] [int total characters] \nnote total characters must be greater or equal to k");
+        throw invalid_argument("three arguments are required \n[int k] [trainingfile.txt] [int total characters] \nnote total characters must be greater or equal to k");
 
     // read arguments
     k = stoi(string(argv[optind]));
     filename = argv[optind + 1];
     tot_char = stoi(string(argv[optind + 2]));
 
+    // check for invalid arguments
     error_check(k, filename, tot_char);
 
+    // return arguments
     cout << "alpha is: " << alpha<< endl;
     cout <<"k = " << k << endl;
     cout <<"training file is: " << filename << endl;

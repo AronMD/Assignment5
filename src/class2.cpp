@@ -5,12 +5,13 @@
 #include <random>
 
 
+
+
 // private methods
 std::string Distribution::Read(std::string filename){
     // generate required variables
     std::ifstream in;
     std::string s;
-    //std::string 
     text = "";
 
     // Open file
@@ -63,23 +64,20 @@ std::map<std::string, int> Distribution::Map_Gen(std::string text, int k){
 
 
 
+
+
 // Constructors
 // Default
 Distribution::Distribution(){
     // Generate a uniform one with alpha = 0 for 0 elements
-    /*vector<string> names;
-    vector<int> weights;
-    discrete_distribution<> dist;*/
     text = "";
 };
 
 
+
+
 // Others
 Distribution::Distribution(std::string filename, int k, float alpha){
-    /*vector<string> names;
-    vector<int> weights;
-    discrete_distribution<> dist;*/
-
     // Get file as a string
     text = Read(filename);
 
@@ -95,7 +93,6 @@ Distribution::Distribution(std::string filename, int k, float alpha){
     // iterate part by part vector of kgrams and then vector of weightings which becomes distribution
 
     for (auto& pair : store){
-        //cout << pair.first << " " <<pair.second << endl;
         names.push_back(pair.first);
         weights.push_back(pair.second);
     }
@@ -112,10 +109,11 @@ Distribution::Distribution(std::string filename, int k, float alpha){
 // Methods:
 std::string Distribution::get_w(std::mt19937 gen){
     int random_index = dist(gen);
-    //cout << random_index << endl;
     std::string selected_string = names[random_index];
     return selected_string;
 };
+
+
 
 
 void Distribution::print(){
@@ -139,8 +137,6 @@ char Distribution::get_c(std::mt19937 gen, std::string kgram){
 
         if (!kgram.compare(names[i])) { // if w2,w3,...,wk = any_kgram-c
             // 'kgram' and 'i - last char' are equal.
-            //std::cout << kgram << "," << names[i] << std::endl;
-
             // store new distribution data
             cs.push_back(c_temp);
             weights_c.push_back(weights[i]);
@@ -155,7 +151,6 @@ char Distribution::get_c(std::mt19937 gen, std::string kgram){
 
     // select c
     int random_index = dist(gen);
-    //std::cout << random_index << std::endl;
     char c = cs[random_index];
 
     // return c

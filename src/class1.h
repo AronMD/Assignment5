@@ -2,7 +2,6 @@
 #include <iostream>
 #include "class2.h"
 #include <random>
-//#include "class2.cpp"
 
 
 class Kgram{
@@ -10,7 +9,6 @@ private:
     // attributes
     std::random_device rd;
     std::mt19937 gen;
-    //int length;
     
 public:
     // attributes

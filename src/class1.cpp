@@ -1,7 +1,6 @@
 #include "class1.h"
 #include <iostream>
 #include "class2.h"
-//#include "class2.cpp"
 
 // Constructor
 Kgram::Kgram(){
@@ -15,13 +14,18 @@ Kgram::Kgram(){
 Kgram::Kgram(Distribution dist, std::mt19937 gen){
     // Choose w_k - first character 
     kgram = dist.get_w(gen);
-    //std::cout << "kgram in the constructor: " << kgram << std::endl;
 };
+
+
 
 
 Kgram::Kgram(std::string in){
     std::string kgram = in;
 };
+
+
+
+
 
 
 // Methods
@@ -31,12 +35,11 @@ void Kgram::print(){
 
 
 
+
 bool Kgram::test(std::string text){
     // relocate in file
     // make text something one can get from dist.text() and then can just shove in here
-    //std::size_t
     int loc = text.size() - kgram.size() +1;
-    std::cout << "loc: " << loc << std::endl;
 
     loc = std::max(loc, 2);
 
@@ -44,8 +47,6 @@ bool Kgram::test(std::string text){
     std::string endgram = kgram;
     endgram.erase(0,1);
     std::string endtext =text.substr(loc);
-    std::cout << "kgram -1 " << endgram << std::endl;
-    std::cout << "end of text: " << endtext<<std::endl ;
 
     if ( !endgram.compare(endtext)){
         //'endgram' and 'end of text' are equal.
@@ -59,43 +60,45 @@ bool Kgram::test(std::string text){
 };
 
 
+
+
 std::string Kgram::evolve(Distribution dist, int tot_char){
-    // remove w1 and append c
+    // check if terminating kgram
     if (test(dist.text)){
         return kgram;
     };
 
-    //std::cout << kgram << std::endl;
+    // remove w1 and append c
     kgram.erase(0, 1);
     char c = dist.get_c(gen, kgram);
-    //std::cout << c << std::endl;
     kgram += c;
-    //std::cout << "2"<<kgram << std::endl;
 
-
+    // initalise variables for code
     int counter = 1;
     std::string temp;
     while(kgram.size() < tot_char){
-        std::cout << kgram << std::endl;
-        std::cout << "counter" << counter << std::endl;
-        /*if (test(dist.text)){
-            return kgram;
-        };*/
-
+        // store first section of kgram
         temp = kgram.substr(0, counter);
 
+        // remove first section of kgram
         kgram.erase(0, counter);
+
+        // get c and append
         char c = dist.get_c(gen, kgram);
-        //std::cout << c << std::endl;
         kgram += c;
+
+        // restore kgram to full size
         kgram.insert(0, temp);
-        //std::cout << kgram << std::endl;
+
+        // increase size of reduction in kgram to ensure comparisons are of equal size for longer kgrams
         counter++;
 
+        // prevent infinite loops
         if (counter == 10000){
             break;
         }
 
+        // prevent extended past termianting kgram
         if (test(dist.text)){
             return kgram;
         };
@@ -104,6 +107,8 @@ std::string Kgram::evolve(Distribution dist, int tot_char){
 
     return kgram;
 };
+
+
 
 
 std::string Kgram::evolve_alpha(Distribution dist, int tot_char, float alpha){
@@ -123,6 +128,7 @@ std::string Kgram::evolve_alpha(Distribution dist, int tot_char, float alpha){
         kgram.insert(0, temp);
         counter++;
 
+        // prevent infintie loops
         if (counter == 10000){
             break;
         }
