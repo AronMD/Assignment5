@@ -37,7 +37,7 @@ void error_check(int k, string filename, int tot_char){
 
 void error_alpha(string pre_alpha, float alpha){
     // ensure alpha given isnt a string - atof returns 0 if it is, need to check alpha hasnt been specified as 0 or 0.00
-    if ((alpha = 0) and ( pre_alpha[0] != '0'))
+    if ((alpha == 0) and ( pre_alpha[0] != '0'))
         throw invalid_argument("alpha is a number greater than or equal to 0");
 };
 
