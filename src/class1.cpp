@@ -29,6 +29,7 @@ void Kgram::print(){
     std::cout<< kgram << std::endl;
 }
 
+
 std::string Kgram::evolve(Distribution dist, int tot_char){
     // remove w1 and append c
     kgram.erase(0, 1);
@@ -58,5 +59,31 @@ std::string Kgram::evolve(Distribution dist, int tot_char){
     }
 
     return kgram;
+};
 
+
+std::string Kgram::evolve_alpha(Distribution dist, int tot_char, float alpha){
+    // remove w1 and append c
+    kgram.erase(0, 1);
+    char c = dist.get_c_alpha(gen, kgram, alpha);
+    kgram += c;
+
+    // Evolve but with alpha
+    int counter = 1;
+    std::string temp;
+    while(kgram.size() < tot_char){
+        temp = kgram.substr(0, counter);
+
+        kgram.erase(0, counter);
+        char c = dist.get_c_alpha(gen, kgram, alpha);
+        kgram += c;
+        kgram.insert(0, temp);
+        counter++;
+
+        if (counter == 10000){
+            break;
+        }
+    }
+
+    return kgram;
 };

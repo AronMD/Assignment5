@@ -12,7 +12,7 @@ using namespace std;
 
 /*
 To DO:
-Errors  - an option -a that is not followed by a non-negative number, or an unknown option,
+w has no transitions (it only occurs at the end of the training text), stop.
 alpha
 makefile
 
@@ -90,20 +90,26 @@ int main(int argc, char *argv[]){
     // search file character by character and record values to generate distribution
     Distribution dist(filename, k, alpha);
     vector<string> names = dist.names;
-    if (alpha != 0){
-        //dist.update_alpha(alpha);
-    }
 
     // random seed generation
     random_device rd;
     mt19937 gen(rd());
 
-    // Generate the kgram and then evolve it longer
-    Kgram kgr(dist, gen);
-    cout << "The generated text is: " << endl;
-    kgr.evolve(dist, tot_char);
-    kgr.print();
-    
+    // deciding to evolve the kgram either with alpha or not
+    if (alpha != 0){
+        Kgram kgr(dist, gen);
+        cout << "The generated text is: " << endl;
+        // Evolve alpha
+        kgr.evolve_alpha(dist, tot_char, alpha);
+        kgr.print();
+    }
+    else{
+        // Generate the kgram and then evolve it longer
+        Kgram kgr(dist, gen);
+        cout << "The generated text is: " << endl;
+        kgr.evolve(dist, tot_char);
+        kgr.print();
+    }
 
     return 0;
 }

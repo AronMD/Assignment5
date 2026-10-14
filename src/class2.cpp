@@ -4,10 +4,6 @@
 #include <map>
 #include <random>
 
-//using namespace std;
-
-
-
 
 // private methods
 std::string Distribution::Read(std::string filename){
@@ -29,6 +25,8 @@ std::string Distribution::Read(std::string filename){
 
     return text;
 };
+
+
 
 
 std::map<std::string, int> Distribution::Map_Gen(std::string text, int k){
@@ -73,6 +71,7 @@ Distribution::Distribution(){
     discrete_distribution<> dist;*/
 };
 
+
 // Others
 Distribution::Distribution(std::string filename, int k, float alpha){
     /*vector<string> names;
@@ -107,6 +106,7 @@ Distribution::Distribution(std::string filename, int k, float alpha){
 
 
 
+
 // Methods:
 std::string Distribution::get_w(std::mt19937 gen){
     int random_index = dist(gen);
@@ -123,16 +123,14 @@ void Distribution::print(){
 };
 
 
+
+
 // need one for selecting for P(c|w)
 char Distribution::get_c(std::mt19937 gen, std::string kgram){
     std::vector<char> cs; // vectors for pot c
     std::vector<int> weights_c; // relative weightings for c
 
-    // search for the possible endings
-    // iterate through names and weights
-
-    //std::cout<<"kgram in get_c is: " <<kgram << std::endl;
-
+    // search for the possible endings, iterate through names and weights
     for (int i=0; i<names.size(); i++){
         char c_temp = names[i].back(); // determine last c
         names[i].pop_back(); // remove last char "c"
@@ -164,6 +162,49 @@ char Distribution::get_c(std::mt19937 gen, std::string kgram){
 
 
 
-// need one for alpha
 
-//
+// P(c|w) including alpha
+char Distribution::get_c_alpha(std::mt19937 gen, std::string kgram, float alpha){
+    std::vector<char> cs; // vectors for pot c
+    std::vector<int> weights_c; // relative weightings for c
+    std::vector<char> all_c; // vector of all chars
+
+    // search for the possible endings, iterate through names and weights
+    for (int i=0; i<names.size(); i++){
+        char c_temp = names[i].back(); // determine last c
+        names[i].pop_back(); // remove last char "c"
+        all_c.push_back(c_temp); // record c
+
+        if (!kgram.compare(names[i])) { // if w2,w3,...,wk = any_kgram-c
+            // 'kgram' and 'i - last char' are equal.
+            //std::cout << kgram << "," << names[i] << std::endl;
+
+            // store new distribution data
+            cs.push_back(c_temp);
+            weights_c.push_back(weights[i] + alpha); // add alpha to weighted points
+        }
+    
+    // Restore the original names
+    names[i] = names[i] + c_temp;
+    }
+
+    // make a list of all unqiue c's
+    std::sort(all_c.begin(), all_c.end());
+    auto iter = std::unique(all_c.begin(), all_c.end());
+    all_c.erase(iter, all_c.end());
+    cs.insert(cs.end(), all_c.begin(), all_c.end());
+
+    // weight them all by alpha
+    weights_c.insert(weights_c.end(), all_c.size(), alpha);
+
+    // generate distribution
+    dist = std::discrete_distribution<> (weights_c.begin(), weights_c.end());
+
+    // select c
+    int random_index = dist(gen);
+    //std::cout << random_index << std::endl;
+    char c = cs[random_index];
+
+    // return c
+    return c;
+};

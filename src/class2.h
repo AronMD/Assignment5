@@ -28,5 +28,6 @@ public:
     std::string get_w(std::mt19937 gen);
     void print();
     char get_c(std::mt19937 gen, std::string kgram);
+    char get_c_alpha(std::mt19937 gen, std::string kgram, float alpha);
 };
 
