@@ -10,7 +10,8 @@ std::string Distribution::Read(std::string filename){
     // generate required variables
     std::ifstream in;
     std::string s;
-    std::string text;
+    //std::string 
+    text = "";
 
     // Open file
     in.open(filename);
@@ -69,6 +70,7 @@ Distribution::Distribution(){
     /*vector<string> names;
     vector<int> weights;
     discrete_distribution<> dist;*/
+    text = "";
 };
 
 
@@ -79,7 +81,7 @@ Distribution::Distribution(std::string filename, int k, float alpha){
     discrete_distribution<> dist;*/
 
     // Get file as a string
-    std::string text = Read(filename);
+    text = Read(filename);
 
     // Check text is sufficiently long for a kgram
     //a training text that is too short to contain any -gram followed by a character

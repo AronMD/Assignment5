@@ -19,6 +19,7 @@ private:
 public:
     // Attributes
     std::vector<std::string> names;
+    std::string text;
 
     // Generators
     Distribution();
