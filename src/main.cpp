@@ -92,6 +92,8 @@ int main(int argc, char *argv[]){
     // deciding to evolve the kgram either with alpha or not
     if (alpha != 0){
         Kgram kgr(dist, gen);
+        cout << "The initial kgram is: " <<endl;
+        kgr.print();
         cout << "The generated text is: " << endl;
         // Evolve alpha
         kgr.evolve_alpha(dist, tot_char, alpha);
@@ -100,6 +102,8 @@ int main(int argc, char *argv[]){
     else{
         // Generate the kgram and then evolve it longer
         Kgram kgr(dist, gen);
+        cout << "The initial kgram is: " <<endl;
+        kgr.print();
         cout << "The generated text is: " << endl;
         kgr.evolve(dist, tot_char);
         kgr.print();
